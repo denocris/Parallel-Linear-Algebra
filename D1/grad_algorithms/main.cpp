@@ -89,19 +89,19 @@ int main(){
 
 
 int Nfixed = 500;
-A = new double [N * N];
-b = new double [N];
-sol = new double [N];
+A = new double [Nfixed * Nfixed];
+b = new double [Nfixed];
+sol = new double [Nfixed];
 
 scaling_iter = fopen("../data/scaling2.dat", "w");
 
-for(i = 0; i < 10; i++){
-  for(cond_numb = 1250; cond_numb < 62501; cond_numb += 1250){
+for(i = 0; i < 3; i++){
+  for(cond_numb = 1250; cond_numb < 1250 * 6 + 1; cond_numb += 1250){
 
     fill_defpos_symm_matrix(A, cond_numb, Nfixed);
-    fill_source(b, 2., 0.5, N);
+    fill_source(b, 2., 0.5, Nfixed);
 
-    conj_gradient_algorithm(A, sol, b, r_hat, N, &num_iter);
+    conj_gradient_algorithm(A, sol, b, r_hat, Nfixed, &num_iter);
 
     fprintf(  scaling_iter, "%lg\t%d\n", cond_numb, num_iter);
 
