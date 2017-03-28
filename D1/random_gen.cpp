@@ -12,6 +12,10 @@
  #include <stdlib.h>
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef RANDOM_CPP11
 std::mt19937_64 gen;
 #endif
@@ -90,7 +94,7 @@ void fill_unitary_matrix(double *u,int n)
       //fill current line
       for(int j=0;j<n;j++) u[i*n+j]=get_gauss_double(0,1);
       //othonormalize w.r.t. past lines
-      for(int j=0;j<i;j++) 
+      for(int j=0;j<i;j++)
         {
           double norm=0;
           for(int k=0;k<n;k++) norm+=u[i*n+k]*u[j*n+k];
@@ -121,7 +125,7 @@ void fill_defpos_symm_matrix(double *m,double cond_numb,int n)
   
   //rotate
   for(int i=0;i<n;i++)
-    for(int j=0;j<n;j++) 
+    for(int j=0;j<n;j++)
       {
         m[i*n+j]=0;
         for(int k=0;k<n;k++) m[i*n+j]+=u[k*n+i]*e[k]*u[k*n+j];
@@ -131,6 +135,10 @@ void fill_defpos_symm_matrix(double *m,double cond_numb,int n)
   delete[] u;
 }
 
+//fortran interface
+void fill_defpos_symm_matrix_(double *mat,double *cond_numb,int *n)
+{fill_defpos_symm_matrix(mat,*cond_numb,*n);}
+
 //fill a completely random matrix with gaussian entries
 void fill_gauss_matrix(double *m,double ave,double sigma,int n)
 {
@@ -138,3 +146,7 @@ void fill_gauss_matrix(double *m,double ave,double sigma,int n)
     for(int j=0;j<n;j++)
       m[i*n+j]=get_gauss_double(ave,sigma);
 }
+
+#ifdef __cplusplus
+}
+#endif
