@@ -84,4 +84,5 @@ void conj_gradient_algorithm(double * A, double * x, double * b, double r_hat_ta
     delete [] t;
   }
 delete [] r;
+delete [] p;
 }
