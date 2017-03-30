@@ -83,7 +83,7 @@ inline void Fourier_transform(complex<double> *out,double *in,int sign,int L,int
   fftw_destroy_plan(plan);
   delete[] tempin;
 }
-inline void Fourier_transform(double *out,complex<double> *in,int sign,int V)
+inline void Fourier_transform(double *out,complex<double> *in,int sign,int L,int V)
 {
   int sizes[NDIMS];
   for(int mu=0;mu<NDIMS;mu++) sizes[mu]=L;
