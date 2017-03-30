@@ -1,6 +1,7 @@
 #include "mat_vect_tools.h"
 
-/* in this way: (x,y) = \sum_i x_i y_i */
+
+
 double scalar_prod(double* x, double* y, int N){
 
   double scprod = 0.0;
@@ -12,8 +13,6 @@ double scalar_prod(double* x, double* y, int N){
   return scprod;
 }
 
-/* this function return a pointer to the memory area */
-/* that contain the result of the operation (array of size N) */
 double * mat_vec_prod(const double * A, const double * x, const int N){
 
   double * mvprod = new double [N];
@@ -37,4 +36,18 @@ double vector_norm(const double * x, const int N){
     norm += x[i] * x[i];
 
   return norm;
+}
+
+
+
+void efficient_mat_vect_prod(double* x, double* row, double sigma, double s, int N){
+
+  // First and last rows
+  row[0] = (sigma + 1.) * x[0] + s * x[1] + s * x[N - 1];
+  row[N - 1] = s * x[0] + s * x[N - 2] + (sigma + 1.) * x[N - 1];
+
+  // Other rows
+  for(int i = 1; i < N - 1; i++){
+    row[i] = s * x[i - 1] + (sigma + 1.) * x[i] + s * x[i + 1];
+  }
 }

@@ -1,10 +1,10 @@
 #CC=g++
 CC=clang++
-CFLAGS=-I. -g
+CFLAGS=-I.
 DEPS=$(wildcard *.h)
 SRCS=$(wildcard *.cpp)
 OBJS=$(SRCS:.c=.o)
-TARGET=main.x
+TARGET=main_laplace.x
 
 
 all: info $(TARGET)
