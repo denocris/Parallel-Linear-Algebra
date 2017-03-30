@@ -84,6 +84,7 @@ void conj_gradient_algorithm(double * A, double * x, double * b, double r_hat_ta
     delete [] t;
   }
 delete [] r;
+delete [] p;
 }
 
 
@@ -171,4 +172,5 @@ void errors_conj_grad_alg(double * A, double * x, double * b, double r_hat_targ,
 errors.close();
 delete [] err_impl;
 delete [] err_expl;
+delete [] p;
 }
