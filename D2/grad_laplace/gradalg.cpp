@@ -179,7 +179,6 @@ delete [] err_expl;
 void efficient_conj_grad_alg(double * x, double * b,
   double sigma, double s, double r_hat_targ, int N, int * num_iter){
 
-  double * t; // A*p_(k-1)
   double r_hat_2, alpha, beta;
   double scalar_prod_rk, square_norm_of_b;
   int i;
