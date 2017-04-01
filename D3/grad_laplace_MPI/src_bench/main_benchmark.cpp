@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <cmath>
+#include <cstdlib>
 
 #include "../header/gradalg.h"
 #include "../header/tool_laplace.h"
@@ -10,12 +12,13 @@
 /* MPI for Distributed Memory Parallelization */
 #include <mpi.h>
 
-int main(int argc, char** argv){
+int main(int argc, char ** argv){
 
   double sigma = 0.6,  s = -0.5;
   double r_hat_targ = 1.e-16;
+  double t_start, t_end;
 
-  int i, rk, num_iter, L = 6;
+  int i, rk, num_iter, L;
 
   double * f;
   double * b;
@@ -23,8 +26,7 @@ int main(int argc, char** argv){
 
   /* File declaration */
 
-  //std::ofstream standard_implemetation;
-  //std::ofstream efficient_implemetation;
+  std::ofstream time_data;
 
   /* MPI variables declaration */
 
@@ -35,10 +37,15 @@ int main(int argc, char** argv){
   double * results_recv, * b_to_send;
   int * displ, * recv;
 
+  L = atoi(argv[1]);
+
   MPI_Init(&argc, &argv);
-  MPI_Init();
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+
+  /* For Weak Scaling */
+  L = L * size;
 
   vect_size = L;
   L_local = L / size;
@@ -89,8 +96,12 @@ int main(int argc, char** argv){
   }
 
   /* Efficient MPI Implementation of Conj Gradient */
+
+  t_start = MPI_Wtime();
+
   efficient_conj_grad_alg_MPI(f, b, sigma, s, r_hat_targ, L_local, &num_iter, rank, size);
-  //efficient_conj_grad_alg(f, b, sigma, s, r_hat_targ, L_local, &num_iter);
+
+  t_end = MPI_Wtime();
 
 
   /* Takes local f and b and sends them to results_recv and b_to_send in precise positions */
@@ -104,6 +115,28 @@ int main(int argc, char** argv){
   MPI_Gatherv(b, L_local, MPI_DOUBLE, b_to_send, recv, displ, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
   if(rank == 0){
+      /* WEAK SCALING */
+
+      time_data.open("../data/weak_scaling.dat", std::ios_base::app);
+
+      time_data << vect_size << "\t"
+         << t_end - t_start << "\t"
+         << std::endl << std::endl;
+
+      time_data.close();
+
+      /* STRONG SCALING */
+/*
+      time_data.open("../data/strong_scaling.dat");
+
+      time_data << size << "\t"
+         << t_end - t_start << "\t"
+         << std::endl << std::endl;
+
+      time_data.close();
+*/
+
+
       std::cout <<"\n\tResults from process " << rank << "\t\n" << std::endl;
       for(i = 0; i < vect_size; i++)
         std::cout << "\t" << results_recv[i] << "\t\n" << std::endl;
