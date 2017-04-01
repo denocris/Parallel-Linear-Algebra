@@ -13,7 +13,7 @@
 int main(int argc, char** argv){
 
   double sigma = 0.6,  s = -0.5;
-  double r_hat_targ = 1.e-15;
+  double r_hat_targ = 1.e-16;
   double t_start, t_end;
 
   int i, rk, num_iter, L = 6;
@@ -46,7 +46,7 @@ int main(int argc, char** argv){
 
   /* Distribute the rest following the order: rank 0,1,2,... */
   if(rest != 0 && rank < rest)
-    L_local += 1;
+    L_local++;
 
   if(rank == 0){
       f = new double[L_local];
@@ -68,7 +68,7 @@ int main(int argc, char** argv){
       for(rk = 1; rk < size; rk++){
 
         if(rest != 0 && rk == rest)
-          l_loc_tmp -= l_loc_tmp;
+          l_loc_tmp--;
 
         fill_source(b_to_send, 2.2, 0.5, l_loc_tmp);
         MPI_Send(b_to_send, l_loc_tmp, MPI_DOUBLE, rk, mytag, MPI_COMM_WORLD);
@@ -86,7 +86,6 @@ int main(int argc, char** argv){
 
     /* All other processes different from 0 receives in b */
     MPI_Recv(b, L_local, MPI_DOUBLE, 0, mytag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
   }
 
   /* Efficient Implementation of Conj Gradient */
@@ -105,7 +104,7 @@ int main(int argc, char** argv){
   MPI_Gatherv(b, L_local, MPI_DOUBLE, b_to_send, recv, displ, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
   if(rank == 0){
-      std::cout <<"\n\tResults from process" << rank << "\t\n" << std::endl;
+      std::cout <<"\n\tResults from process " << rank << "\t\n" << std::endl;
       for(i = 0; i < vect_size; i++)
         std::cout << "\t" << results_recv[i] << "\t\n" << std::endl;
 
@@ -115,7 +114,7 @@ int main(int argc, char** argv){
     std::cout <<"\n\t Conjugate Gradient " << "\t" << std::endl;
     std::cout <<"\n\t Solution: \t\t Check: " << "\t" << std::endl;
 
-    for(i = 0; i < L; i++){
+    for(i = 0; i < vect_size; i++){
       std::cout << "\t" << results_recv[i] << "\t\t"
       << check_sol[i] << "\t"
       << std::endl;
@@ -129,5 +128,10 @@ int main(int argc, char** argv){
 
 
   }
-    MPI_Finalize();
+
+  delete [] f;
+  delete [] b;
+  MPI_Finalize();
+
+  return 0;
 }

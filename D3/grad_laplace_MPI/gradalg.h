@@ -21,7 +21,7 @@ void efficient_conj_grad_alg(double * x, double * b,
     double sigma, double s, double r_hat_targ, int N, int * num_iter);
 
 void efficient_conj_grad_alg_MPI(double * x, double * b,
-    double sigma, double s, double r_hat_targ, int N, int * num_iter, int rank, int size)
+    double sigma, double s, double r_hat_targ, int N, int * num_iter, int rank, int size);
 
 
 #endif

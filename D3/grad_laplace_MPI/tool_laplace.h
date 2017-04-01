@@ -1,5 +1,5 @@
-#ifndef __TOOLS__
-#define __TOOLS__
+#ifndef __LTOOLS__
+#define __LTOOLS__
 
 #include <string>
 #include <iostream>
