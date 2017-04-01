@@ -1,4 +1,4 @@
-#include "mat_vect_tools.h"
+#include "../header/mat_vect_tools.h"
 
 #include <mpi.h>
 

@@ -1,5 +1,5 @@
-#include "gradalg.h"
-#include "mat_vect_tools.h"
+#include "../header/gradalg.h"
+#include "../header/mat_vect_tools.h"
 
 #include <mpi.h>
 

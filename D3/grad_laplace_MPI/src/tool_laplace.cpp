@@ -1,4 +1,4 @@
-#include "tool_laplace.h"
+#include "../header/tool_laplace.h"
 
 void init_laplace_matrix(double* M, double sigma, double s, int L){
 
@@ -27,12 +27,4 @@ double seconds(){
   gettimeofday( &tmp, (struct timezone *)0 );
   sec = tmp.tv_sec + ((double)tmp.tv_usec)/1000000.0;
   return sec;
-}
-
-void compute_eigenvalues(double* eigenv, double sigma, int L){
-  int j;
-
-  for(j = 0; j < L; j++)
-    eigenv[j] = sigma + 1. - cos(2. * 3.14 * j / L);
-
 }

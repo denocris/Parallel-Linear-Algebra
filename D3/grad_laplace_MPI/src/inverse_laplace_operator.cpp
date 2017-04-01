@@ -1,4 +1,4 @@
-#include "inverse_laplace_operator.hpp"
+#include "../header/inverse_laplace_operator.hpp"
 
 #ifdef __cplusplus
 extern "C" {

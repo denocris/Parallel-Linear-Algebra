@@ -2,10 +2,10 @@
 #include <iostream>
 #include <cmath>
 
-#include "gradalg.h"
-#include "tool_laplace.h"
-#include "random_gen.hpp"
-#include "inverse_laplace_operator.hpp"
+#include "../header/gradalg.h"
+#include "../header/tool_laplace.h"
+#include "../header/random_gen.hpp"
+#include "../header/inverse_laplace_operator.hpp"
 
 /* MPI for Distributed Memory Parallelization */
 #include <mpi.h>
