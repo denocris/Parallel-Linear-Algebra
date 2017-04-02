@@ -2,8 +2,8 @@
 #PBS -l nodes=1:ppn=20
 #PBS -l walltime=01:00:00
 
-#cd P2.6_seed/D3/
-#module load openmpi
+cd P2.6_seed/D3/grad_laplace_MPI/src_bench
+module load openmpi
 
 
 #for ((size=100;size<=1000;size+=100))
