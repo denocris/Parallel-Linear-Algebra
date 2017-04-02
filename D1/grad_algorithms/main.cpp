@@ -6,11 +6,11 @@
 int main(){
 
   double * check_sol;
-  double r_hat = 1.e-3;
-  double cond_numb = 1.e5;
+  double r_hat = 1.e-10;
+  double cond_numb = 1.e6;
 
   int N = 2, num_iter, i;
-  //int num_rep = 10;
+  int num_rep = 10;
 
   double * A = new double [N * N];
   double * b = new double [N];
@@ -95,7 +95,7 @@ sol = new double [Nfixed];
 
 scaling_iter = fopen("../data/scaling2.dat", "w");
 
-for(i = 0; i < 3; i++){
+for(i = 0; i < num_rep; i++){
   for(cond_numb = 1250; cond_numb < 1250 * 6 + 1; cond_numb += 1250){
 
     fill_defpos_symm_matrix(A, cond_numb, Nfixed);
