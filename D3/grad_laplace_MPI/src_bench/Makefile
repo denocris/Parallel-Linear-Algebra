@@ -35,7 +35,7 @@ $(TARGET): $(OBJS)
 clean:
 	$(info ********** cleaning up *********)
 	@rm -f *~ *.o $(TARGET) > /dev/null 2>&1
-	#@rm -f ../data/*.dat
+	@rm -f ../data/*.dat
 
 
 .PHONY: clean

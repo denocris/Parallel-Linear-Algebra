@@ -22,7 +22,6 @@ int main(int argc, char ** argv){
 
   double * f;
   double * b;
-  double * check_sol;
 
   /* File declaration */
 
@@ -119,9 +118,11 @@ int main(int argc, char ** argv){
 
       time_data.open("../data/weak_scaling.dat", std::ios_base::app);
 
-      time_data << vect_size << "\t"
+      time_data << size << "\t"
+         << atoi(argv[1]) << "\t"
+         << vect_size << "\t"
          << t_end - t_start << "\t"
-         << std::endl << std::endl;
+         << std::endl;
 
       time_data.close();
 
@@ -136,30 +137,12 @@ int main(int argc, char ** argv){
       time_data.close();
 */
 
-
-      std::cout <<"\n\tResults from process " << rank << "\t\n" << std::endl;
-      for(i = 0; i < vect_size; i++)
-        std::cout << "\t" << results_recv[i] << "\t\n" << std::endl;
-
-    check_sol = new double[vect_size];
-
-    inverse_laplace_operator(check_sol, b_to_send, sigma, vect_size, vect_size);
-    std::cout <<"\n\t Conjugate Gradient " << "\t" << std::endl;
-    std::cout <<"\n\t Solution: \t\t Check: " << "\t" << std::endl;
-
-    for(i = 0; i < vect_size; i++){
-      std::cout << "\t" << results_recv[i] << "\t\t"
-      << check_sol[i] << "\t"
-      << std::endl;
-    }
+    //std::cout <<  "\n\t Benchmark Finished \t\n" << std::endl;
 
     delete [] results_recv;
     delete [] displ;
     delete [] recv;
     delete [] b_to_send;
-    delete [] check_sol;
-
-
   }
 
   delete [] f;
