@@ -128,7 +128,7 @@ int main(int argc, char ** argv){
 */
       /* STRONG SCALING */
 
-      time_data.open("../data/strong_scaling.dat");
+      time_data.open("../data/strong_scaling.dat", std::ios_base::app);
 
       time_data << size << "\t"
          << t_end - t_start << "\t"
