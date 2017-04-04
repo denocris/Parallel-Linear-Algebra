@@ -44,7 +44,7 @@ int main(int argc, char ** argv){
 
 
   /* For Weak Scaling */
-  L = L * size;
+  //L = L * size;
 
   vect_size = L;
   L_local = L / size;
@@ -115,7 +115,7 @@ int main(int argc, char ** argv){
 
   if(rank == 0){
       /* WEAK SCALING */
-
+/*
       time_data.open("../data/weak_scaling.dat", std::ios_base::app);
 
       time_data << size << "\t"
@@ -125,9 +125,9 @@ int main(int argc, char ** argv){
          << std::endl;
 
       time_data.close();
-
+*/
       /* STRONG SCALING */
-/*
+
       time_data.open("../data/strong_scaling.dat");
 
       time_data << size << "\t"
@@ -135,7 +135,7 @@ int main(int argc, char ** argv){
          << std::endl << std::endl;
 
       time_data.close();
-*/
+
 
     //std::cout <<  "\n\t Benchmark Finished \t\n" << std::endl;
 
