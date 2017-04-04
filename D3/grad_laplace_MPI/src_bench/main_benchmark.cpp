@@ -132,7 +132,7 @@ int main(int argc, char ** argv){
 
       time_data << size << "\t"
          << t_end - t_start << "\t"
-         << std::endl << std::endl;
+         << std::endl;
 
       time_data.close();
 

@@ -5,10 +5,8 @@
 cd P2.6_seed/D3/grad_laplace_MPI/src_bench
 module load openmpi
 
-
 #for ((size=100;size<=1000;size+=100))
-size=500000
 for i in  1 2 4 8 16
 do
-	mpirun -np $i ./main_benchmark.x $size  #>> $outfile
+	mpirun -np $i ./main_benchmark.x 500000  #>> $outfile
 done
